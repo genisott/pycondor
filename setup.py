@@ -10,5 +10,5 @@ setup(name='condor',
     packages=['condor'],
     install_requires=['pandas',
     'numpy',
-    'igraph'],
+    'python-igraph'],
     zip_safe=False)

@@ -1,17 +1,7 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[28]:
-
-
 import numpy as np
 import pandas as pd
 import time
 from igraph import *
-
-
-# In[29]:
-
 
 def matrices(net,genes,regs):
     """Builds the adjacency matrix and the modularity matrix."""
@@ -30,17 +20,12 @@ def matrices(net,genes,regs):
     return A,B,m
 
 
-# In[34]:
-
-
 def bipartite_modularity(B,m,R,T):  
     """Computation of the bipartite modularity as described in ""Modularity and community detection in bipartite networks" by Michael J. Barber." """
     RtBT = R.transpose().dot(B.dot(T))
     Q = (1/m)*(np.trace(RtBT))
     return Q
 
-
-# In[31]:
 
 
 def max_modularity(B,m,R0,T0,c,deltaQmin):
@@ -70,8 +55,6 @@ def max_modularity(B,m,R0,T0,c,deltaQmin):
     return R,T    
 
 
-# In[32]:
-
 
 def initial_communities(A,gn,rg,c):
     """Uses multilevel community detection from the package python-igraph to create the initial community structure."""
@@ -96,10 +79,8 @@ def initial_communities(A,gn,rg,c):
     return R,T
 
 
-# In[35]:
 
-
-def condor(filename,c,deltaQmin="def"):
+def condor(filename,c=25,deltaQmin="def"):
     """Main function of the pyCONDOR package.
     This function reads a filename which should be a tab-separated file containing edges and weights for a bipartite graph.
     c is the max number of communities that can be found.
@@ -121,14 +102,13 @@ def condor(filename,c,deltaQmin="def"):
     #Loads the network file.
     t = time.time()
     net = pd.read_csv(filename,sep="\t",index_col=0)
-    net = net[["tar","reg","weight"]]
     
     if(deltaQmin=="def"):
         deltaQmin = min(1/len(net),1e-4)
     
-    gn = list(sorted(set(net["tar"])))
+    gn = list(sorted(set(net.iloc[:,0])))
     genes = {gn[i]:i for i in range(0,len(gn))}
-    rg = list(sorted(set(net["reg"])))
+    rg = list(sorted(set(net.iloc[:,1])))
     regs = {rg[i]:i for i in range(0,len(rg))}
     print("Data loaded.",time.time()-t)
     
@@ -157,10 +137,3 @@ def condor(filename,c,deltaQmin="def"):
     
     print("Total time:",time.time()-tt)
     return Rf,Tf
-
-
-# In[ ]:
-
-
-
-
