@@ -160,7 +160,7 @@ def condor(filename,c=25,deltaQmin="def"):
     """Default settings run of condor with output of the membership dataframes.
     Reads a network in csv format and index_col=0."""
     
-    
+    t = time.time()
     net = pd.read_csv(filename,sep=",",index_col=0)
     CO = condor_object(net)
     CO = initial_community(CO)
@@ -169,4 +169,4 @@ def condor(filename,c=25,deltaQmin="def"):
     CO["tar_memb"].to_csv("tar_memb.txt")
     CO["reg_memb"].to_csv("reg_memb.txt")
     
-    return 0
+    return "Runtime "+str(time.time()-t)+"s"
