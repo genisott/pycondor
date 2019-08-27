@@ -1,1 +1,1 @@
-from .condor import condor, matrices, bipartite_modularity, max_modularity, initial_communities
+from .condor import condor_object, bipartite_modularity,initial_community,brim,matrices,condor
