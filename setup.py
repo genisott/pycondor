@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name='condor',
-    version='1',
+    version='1.1',
     description='Python implementation of CONDOR with the BRIM algorithm.',
     url='https://github.com/genisott/pycondor',
     author='Genís Calderer',
