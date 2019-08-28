@@ -118,9 +118,9 @@ def brim(CO,deltaQmin="def",c=25):
     
     #Update membership dataframes.   
     CO["tar_memb"] = pd.DataFrame(list(zip(list(gn),[R[i,:].argmax() for i in range(0,len(gn))])))
-    CO["reg_memb"] = pd.DataFrame(list(zip(list(gn),[T[i,:].argmax() for i in range(0,len(rg))]))) 
+    CO["reg_memb"] = pd.DataFrame(list(zip(list(rg),[T[i,:].argmax() for i in range(0,len(rg))]))) 
     CO["tar_memb"].columns = ["tar","com"]
-    CO["reg_memb"].columns = ["tar","com"]
+    CO["reg_memb"].columns = ["reg","com"]
         
         
     return CO
@@ -151,7 +151,7 @@ def matrices(CO,c):
     
     #Creates initial community T0 matrix.
     d = CO["index_dict"]
-    ed = zip([rg[j] for j in [d[i] for i in CO["reg_memb"]["index"]]],CO["reg_memb"]["community"])
+    ed = zip([rg[j] for j in [d[i] for i in CO["reg_memb"].iloc[:,0]]],CO["reg_memb"].iloc[:,1])
     T0 = np.zeros((q,c))
     for edge in ed:
         T0[edge]=1
