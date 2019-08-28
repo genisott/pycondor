@@ -169,6 +169,38 @@ def matrices(CO,c):
     print("Matrices computed in",time.time()-t)
     return B,m,T0,R0,gn,rg
 
+
+def qscores(CO):
+    """Computes the qscores (contribution of a vertex to its community modularity)
+    for each vertex in the network."""
+    
+    
+    c = 1 + max(CO["reg_memb"]["com"])
+    B,m,T,R,gn,rg = cd.matrices(CO,6)
+    CO["Qscores"]={"reg_qscores":None,"tar_qscores":None}
+    
+    #Qscores for the regulators:
+    Rq = R.transpose().dot(B)/(2*m)
+    Qj = list()
+    for j,r in CO["reg_memb"].iterrows():
+        Qjh = Rq[r["com"],j]/CO["Qcoms"][r["com"]]
+        Qj.append(Qjh)
+    CO["Qscores"]["reg_qscores"]=CO["reg_memb"].copy()
+    CO["Qscores"]["reg_qscores"]["qscore"] = Qj
+    
+    #Qscores for the targets:
+    Tq = B.dot(T)/(2*m)
+    Qi = list()
+    for i,r in CO["tar_memb"].iterrows():
+        Qih = Tq[i,r["com"]]/CO["Qcoms"][r["com"]]
+        Qi.append(Qih)
+    CO["Qscores"]["tar_qscores"]=CO["tar_memb"].copy()
+    CO["Qscores"]["tar_qscores"]["qscore"] = Qi
+    
+    return CO
+
+
+
 def condor(filename,c=25,deltaQmin="def"):
     """Default settings run of condor with output of the membership dataframes.
     Reads a network in csv format and index_col=0."""
