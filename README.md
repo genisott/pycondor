@@ -28,3 +28,8 @@ Computes the initial community structure and updates the condor object.
 co = brim(co)
 ```
 Runs the iterative modularity optimization algorithm (BRIM) and updates the condor object with the final membership.
+To see the results type:
+```
+CO["tar_memb"]
+CO["reg_memb"]
+```
