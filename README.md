@@ -25,11 +25,17 @@ co = condor.initial_community(co)
 ```
 Computes the initial community structure and updates the condor object.
 ```
-co = brim(co)
+co = condor.brim(co)
 ```
 Runs the iterative modularity optimization algorithm (BRIM) and updates the condor object with the final membership.
 To see the results type:
 ```
 co["tar_memb"]
 co["reg_memb"]
+```
+To compute the qscores for the vertices type:
+```
+co = condor.qscores(co) # Computes the qscores
+co["qscores"]["reg_qscores"] # Dataframe containing the qscores for the regulators.
+co["qscores"]["tar_qscores"] # Dataframe containing the qscores for the targets.
 ```
