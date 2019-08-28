@@ -34,7 +34,7 @@ def condor_object(net):
     index_dict = {k.index:k["name"] for k in Gr.vs  }
     
     print("Condor object built in",time.time()-t)
-    return {"G":Gr,"tar_names":tar_names,"reg_names":reg_names,"index_dict":index_dict,"edges":edges,"modularity":None,"reg_memb":None,"tar_memb":None,"Qcoms":None}
+    return {"G":Gr,"tar_names":tar_names,"reg_names":reg_names,"index_dict":index_dict,"edges":edges,"modularity":None,"reg_memb":None,"Qcoms":None}
 
 def bipartite_modularity(B,m,R,T,CO):  
     """Computation of the bipartite modularity as described in ""Modularity and community detection in bipartite networks" by Michael J. Barber." """
