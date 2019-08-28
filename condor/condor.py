@@ -176,7 +176,7 @@ def qscores(CO):
     
     
     c = 1 + max(CO["reg_memb"]["com"])
-    B,m,T,R,gn,rg = cd.matrices(CO,6)
+    B,m,T,R,gn,rg = matrices(CO,6)
     CO["Qscores"]={"reg_qscores":None,"tar_qscores":None}
     
     #Qscores for the regulators:
