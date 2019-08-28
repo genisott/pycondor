@@ -30,6 +30,6 @@ co = brim(co)
 Runs the iterative modularity optimization algorithm (BRIM) and updates the condor object with the final membership.
 To see the results type:
 ```
-CO["tar_memb"]
-CO["reg_memb"]
+co["tar_memb"]
+co["reg_memb"]
 ```
