@@ -83,7 +83,7 @@ def brim(CO,deltaQmin="def",c=25):
     """    
 
     #Gets modularity matrix, initial community matrix and index dictionary.
-    B,m,T0,gn,rg = matrices(CO,c)
+    B,m,T0,R0,gn,rg = matrices(CO,c)
     
     #Default deltaQmin.
     if(deltaQmin == "def"):
@@ -159,8 +159,15 @@ def matrices(CO,c):
     for edge in ed:
         T0[edge]=1
     
+    if ("tar_memb" not in CO):
+        print("Matrices computed in",time.time()-t)
+        return B,m,T0,0,gn,rg
+    ed = zip([gn[j] for j in CO["tar_memb"].iloc[:,0]],CO["tar_memb"].iloc[:,1])
+    R0 = np.zeros((p,c))
+    for edge in ed:
+        R0[edge]=1
     print("Matrices computed in",time.time()-t)
-    return B,m,T0,gn,rg
+    return B,m,T0,R0,gn,rg
 
 def condor(filename,c=25,deltaQmin="def"):
     """Default settings run of condor with output of the membership dataframes.
