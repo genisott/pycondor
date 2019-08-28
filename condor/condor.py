@@ -151,7 +151,10 @@ def matrices(CO,c):
     
     #Creates initial community T0 matrix.
     d = CO["index_dict"]
-    ed = zip([rg[j] for j in [d[i] for i in CO["reg_memb"].iloc[:,0]]],CO["reg_memb"].iloc[:,1])
+    if ("index" in CO["reg_memb"].columns): 
+        ed = zip([rg[j] for j in [d[i] for i in CO["reg_memb"].iloc[:,0]]],CO["reg_memb"].iloc[:,1])
+    else: 
+        ed = zip([rg[j] for j in CO["reg_memb"].iloc[:,0]],CO["reg_memb"].iloc[:,1])
     T0 = np.zeros((q,c))
     for edge in ed:
         T0[edge]=1
