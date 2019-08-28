@@ -34,13 +34,16 @@ def condor_object(net):
     index_dict = {k.index:k["name"] for k in Gr.vs  }
     
     print("Condor object built in",time.time()-t)
-    return {"G":Gr,"tar_names":tar_names,"reg_names":reg_names,"index_dict":index_dict,"edges":edges,"modularity":None,"reg_memb":None,"tar_memb":None}
+    return {"G":Gr,"tar_names":tar_names,"reg_names":reg_names,"index_dict":index_dict,"edges":edges,"modularity":None,"reg_memb":None,"tar_memb":None,"Qcoms":None}
 
-def bipartite_modularity(B,m,R,T):  
+def bipartite_modularity(B,m,R,T,CO):  
     """Computation of the bipartite modularity as described in ""Modularity and community detection in bipartite networks" by Michael J. Barber." """
     RtBT = R.transpose().dot(B.dot(T))
-    Q = (1/m)*(np.trace(RtBT))
-    return Q
+    Qcoms = (1/m)*(np.diagonal(RtBT))
+    Q = sum(Qcoms)
+    Qcoms = Qcoms[Qcoms>0]
+    CO["Qcoms"] = Qcoms
+    return Q,CO
 
 def initial_community(CO,method="LCS",project=False):
     """Computation of the initial community structure based on unipartite methods.
@@ -106,7 +109,7 @@ def brim(CO,deltaQmin="def",c=25):
         T0 = T
         
         Qthen = Qnow
-        Qnow = bipartite_modularity(B,m,R,T)
+        Qnow,CO = bipartite_modularity(B,m,R,T,CO)
         deltaQ = Qnow-Qthen
         print(Qnow)
         
