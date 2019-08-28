@@ -11,3 +11,20 @@ cd pycondor
 pip install .
 ```
 To use the package you can import it using: ```import condor```. And then access the different functions implemented with ```condor.function()```.
+
+
+## Usage instructions
+Supose you have a network (weighted or not) as an edgelist loaded into a pandas dataframe.
+```
+import condor
+co = condor.condor_object(net)
+```
+Returns a condor object (dictionary with a graph, node names, community membership dataframes...)
+```
+co = condor.initial_community(co)
+```
+Computes the initial community structure and updates the condor object.
+```
+co = brim(co)
+```
+Runs the iterative modularity optimization algorithm (BRIM) and updates the condor object with the final membership.
