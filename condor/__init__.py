@@ -1,1 +1,1 @@
-from .condor import condor_object, bipartite_modularity,initial_community,brim,matrices,qscores,condor
+from .condor import condor_object, run_condor
