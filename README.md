@@ -10,32 +10,27 @@ git clone https://github.com/genisott/pycondor.git
 cd pycondor
 pip install .
 ```
-To use the package you can import it using: ```import condor```. And then access the different functions implemented with ```condor.function()```.
+To use the package you can import it using: ```import condor```. Create a ```ccondor_object``` then apply the different functions with ```condor_object.function()```.
 
 
 ## Usage instructions
-Supose you have a network (weighted or not) as an edgelist loaded into a pandas dataframe.
+Supose you have a network (weighted or not) as an edgelist..
 ```
 import condor
-co = condor.condor_object(net)
+co = condor.condor_object("edgelist.txt")
 ```
 Returns a condor object (dictionary with a graph, node names, community membership dataframes...)
 ```
-co = condor.initial_community(co)
+co.initial_community()
 ```
 Computes the initial community structure and updates the condor object.
 ```
-co = condor.brim(co)
+co.brim()
 ```
 Runs the iterative modularity optimization algorithm (BRIM) and updates the condor object with the final membership.
 To see the results type:
 ```
-co["tar_memb"]
-co["reg_memb"]
+co.tar_memb
+co.reg_memb
 ```
-To compute the qscores for the vertices type:
-```
-co = condor.qscores(co) # Computes the qscores
-co["qscores"]["reg_qscores"] # Dataframe containing the qscores for the regulators.
-co["qscores"]["tar_qscores"] # Dataframe containing the qscores for the targets.
-```
+
