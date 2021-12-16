@@ -33,4 +33,13 @@ To see the results type:
 co.tar_memb
 co.reg_memb
 ```
+The whole condor method can be applied to a file by using the function ```run_condor```in the following manner:
+```
+condor.run_condor("edgelist.txt")
+```
+it will output ```reg_memb.txt``` and ```tar_memb.txt``` files.
+
+For more detailed information check ```help(condor.condor_object)``` and ```help(condor.run_condor)```.
+
+
 
